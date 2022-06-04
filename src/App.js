@@ -79,14 +79,14 @@ const App = () => {
                 src={`http://openweathermap.org/img/wn/${city.weather[0].icon}@2x.png`}
                 alt="icon"
               ></img>
-              {description(city.weather[0].description)} {city.main.temp}°C
+              {`${city.main.temp}°C `}
+              {description(city.weather[0].description)}
             </div>
             <div className="location">
-              {city.name} (
-              <i>
-                Max : {city.main.temp_max}°C | {city.main.temp_min} : 30°C
-              </i>
-              )
+              {city.name}
+              <p className="info">
+                (Max : {city.main.temp_max}°C | Min : {city.main.temp_min}°C)
+              </p>
             </div>
             <div className="date">{getDate(new Date())}</div>
           </div>
