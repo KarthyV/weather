@@ -4,7 +4,7 @@ export const WeatherContext = createContext("");
 
 const AppContext = ({ children }) => {
   const [city, setCity] = useState(null);
-  const [next5city, setnext5City] = useState(null);
+  const [forecast, setforecast] = useState(null);
   const [position, setPosition] = useState({
     lat: "",
     lon: "",
@@ -30,7 +30,7 @@ const AppContext = ({ children }) => {
 
   return (
     <WeatherContext.Provider
-      value={{ city, setCity, position, setPosition, next5city, setnext5City }}
+      value={{ city, setCity, position, setPosition, forecast, setforecast }}
     >
       {children}
     </WeatherContext.Provider>

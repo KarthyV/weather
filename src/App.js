@@ -55,6 +55,10 @@ const App = () => {
     if (tomorrow === 7) tomorrow = 0;
     next5.push(days[tomorrow + i]);
   }
+  const newDays = next5.map((day, i) => {
+    if (day === undefined) return (day = days[tomorrow - 1]);
+    return day;
+  });
 
   const description = ([initial, ...rest]) =>
     [initial.toUpperCase(), ...rest].join("");
@@ -90,7 +94,7 @@ const App = () => {
             </div>
             <div className="date">{getDate(new Date())}</div>
           </div>
-          <Forecast next5={next5} />
+          <Forecast ForecastDays={newDays} />
         </div>
       </div>
     );
