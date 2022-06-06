@@ -13,11 +13,16 @@ const SearchBox = () => {
       )
         .then((res) => res.json())
         .then((data) => {
-          const { lat, lon } = data.coord;
-          setPosition({ lat, lon });
-          setCity(data);
-        });
-      console.log(query);
+          if (data.cod !== 200) {
+            throw new Error(`Invalid location, Please try again`);
+          } else {
+            const { lat, lon } = data.coord;
+            setPosition({ lat, lon });
+            setCity(data);
+            setQuery("");
+          }
+        })
+        .catch((err) => alert(err));
     }
   };
   return (
@@ -27,7 +32,7 @@ const SearchBox = () => {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         onKeyPress={handleEnter}
-        placeholder="Enter a City Name..."
+        placeholder="Enter a Location Name..."
       />
     </div>
   );

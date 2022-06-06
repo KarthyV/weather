@@ -66,14 +66,7 @@ const App = () => {
 
   if (!city)
     // Checking if the city state is available
-    return (
-      <div className="App lds-ring">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    );
+    return <div>Loading...</div>;
   else {
     return (
       <div className="App">
@@ -97,7 +90,7 @@ const App = () => {
             <div className="date">{getDate(new Date())}</div>
           </div>
           {/*  Passing Forecast days as Props */}
-          <Forecast ForecastDays={forecastDays} />
+          <Forecast description={description} ForecastDays={forecastDays} />
         </div>
       </div>
     );

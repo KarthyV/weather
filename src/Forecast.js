@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { WeatherContext } from "./context";
 
-const Forecast = ({ ForecastDays }) => {
+const Forecast = ({ ForecastDays, description }) => {
   const { position, forecast, setforecast } = useContext(WeatherContext);
   useEffect(() => {
     if (!position.lat) return;
@@ -30,7 +30,7 @@ const Forecast = ({ ForecastDays }) => {
                 ></img>
                 <h3>{forecast[i].temp.max}°C</h3>
                 <p className="description">
-                  {forecast[i].weather[0].description}
+                  {description(forecast[i].weather[0].description)}
                 </p>
               </div>
             );
