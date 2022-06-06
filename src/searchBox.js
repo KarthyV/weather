@@ -6,6 +6,7 @@ const SearchBox = () => {
   const [query, setQuery] = useState("");
 
   const handleEnter = (e) => {
+    // Updating the position state based on users search results
     if (e.key === "Enter") {
       fetch(
         `https://api.openweathermap.org/data/2.5/weather?q=${query}&appid=d1830506bd0c92984597133ff995c081&units=metric`

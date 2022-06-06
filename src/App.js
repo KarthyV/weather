@@ -4,10 +4,12 @@ import SearchBox from "./searchBox";
 import Forecast from "./Forecast";
 
 const App = () => {
-  const { city, setCity, position } = useContext(WeatherContext);
+  const { city, setCity, position } = useContext(WeatherContext); // Using context
 
   useEffect(() => {
-    if (!position.lat) return;
+    // For Getting the current weather data  of the user based on geolocation
+
+    if (!position.lat) return; // Guard Clause
 
     fetch(
       `https://api.openweathermap.org/data/2.5/weather?lat=${position.lat}&lon=${position.lon}&appid=d1830506bd0c92984597133ff995c081&units=metric`
@@ -40,6 +42,8 @@ const App = () => {
     "Friday",
     "Saturday",
   ];
+
+  // Helper Function Date formatter
   const getDate = (d) => {
     const date = d.getDate();
     const day = days[d.getDay()];
@@ -48,22 +52,20 @@ const App = () => {
 
     return `${day} ${date}, ${month} ${year}`;
   };
-  const date = new Date();
-  const next5 = [];
+  const date = new Date(); // Getting the current date and passing it to helper function
+  const forecastDays = [...days]; // Making a copy of the days for forecast
   let tomorrow = date.getDay() + 1;
-  for (let i = 0; i <= 6; i++) {
-    if (tomorrow === 7) tomorrow = 0;
-    next5.push(days[tomorrow + i]);
+
+  for (let i = 0; i < 7 - tomorrow; i++) {
+    // Rotating the array based on tomorrow
+    forecastDays.unshift(forecastDays.pop());
   }
-  const newDays = next5.map((day, i) => {
-    if (day === undefined) return (day = days[tomorrow - 1]);
-    return day;
-  });
 
   const description = ([initial, ...rest]) =>
     [initial.toUpperCase(), ...rest].join("");
 
   if (!city)
+    // Checking if the city state is available
     return (
       <div className="App lds-ring">
         <div></div>
@@ -94,7 +96,8 @@ const App = () => {
             </div>
             <div className="date">{getDate(new Date())}</div>
           </div>
-          <Forecast ForecastDays={newDays} />
+          {/*  Passing Forecast days as Props */}
+          <Forecast ForecastDays={forecastDays} />
         </div>
       </div>
     );

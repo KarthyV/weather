@@ -3,14 +3,16 @@ import React, { createContext, useState } from "react";
 export const WeatherContext = createContext("");
 
 const AppContext = ({ children }) => {
-  const [city, setCity] = useState(null);
-  const [forecast, setforecast] = useState(null);
+  const [city, setCity] = useState(null); // City Data
+  const [forecast, setforecast] = useState(null); // Forecast data for the next 6 days
   const [position, setPosition] = useState({
+    // Current Users coords & also from the search request
     lat: "",
     lon: "",
   });
 
   if (!position.lat) {
+    // Checking if the search request data doesnt exist, if not setting the current user location
     const location = (pos) => {
       var { latitude: lat, longitude: lon } = pos.coords;
       // console.log(lat, lon);
@@ -29,6 +31,7 @@ const AppContext = ({ children }) => {
   }
 
   return (
+    // passing all the state to the childern (App)
     <WeatherContext.Provider
       value={{ city, setCity, position, setPosition, forecast, setforecast }}
     >
